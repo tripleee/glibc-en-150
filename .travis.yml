@@ -10,7 +10,7 @@ install:
   - make --version
   - gcc --version
   - ld --version
-  - texinfo --version
+  - makeinfo --version
   - awk --version
   - perl --version
   - sed --version

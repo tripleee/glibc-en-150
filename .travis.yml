@@ -1,3 +1,3 @@
 language: c
 
-install: ./configure && make && make install
+install: t=$(mktemp -t -d) && p=$(pwd) && cd "$t" && $p/configure && make -f $p/Makefile && make -f $p/Makefile check

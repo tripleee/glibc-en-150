@@ -6,8 +6,9 @@ before_install:
   - sudo apt-get install texinfo
 
 env:
-  - t=$(mktemp -t -d)
-  - p=$(pwd)
+  global:
+    - t=$(mktemp -t -d)
+    - p=$(pwd)
 
 install: 
   - # check dependencies

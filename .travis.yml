@@ -11,6 +11,8 @@ env:
     - p=$(pwd)
 
 install: 
+  - echo "t is '$t', p is '$p'"
+
   - # check dependencies
   - make --version
   - gcc --version
@@ -21,5 +23,5 @@ install:
   - sed --version
 
   - cd "$t" && "$p"/configure --prefix=/usr
-  - cd "$t" && make -f "$p"/Makefile
-  - cd "$t" && make -f "$p"/Makefile check
+  - cd "$t" && make
+  - cd "$t" && make check

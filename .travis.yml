@@ -5,6 +5,10 @@ before_install:
   - sudo apt-get update -qq
   - sudo apt-get install texinfo
 
+env:
+  - t=$(mktemp -t -d)
+  - p=$(pwd)
+
 install: 
   - # check dependencies
   - make --version
@@ -15,4 +19,6 @@ install:
   - perl --version
   - sed --version
 
-  - t=$(mktemp -t -d) && p=$(pwd) && cd "$t" && $p/configure && make -f $p/Makefile && make -f $p/Makefile check
+  - cd "$t" && "$p"/configure --prefix=/usr
+  - cd "$t" && make -f "$p"/Makefile
+  - cd "$t" && make -f "$p"/Makefile check

@@ -1,3 +1,13 @@
 language: c
 
-install: t=$(mktemp -t -d) && p=$(pwd) && cd "$t" && $p/configure && make -f $p/Makefile && make -f $p/Makefile check
+install: 
+  - # check dependencies
+  - make --version
+  - gcc --version
+  - ld --version
+  - texinfo --version
+  - awk --version
+  - perl --version
+  - sed --version
+
+  - t=$(mktemp -t -d) && p=$(pwd) && cd "$t" && $p/configure && make -f $p/Makefile && make -f $p/Makefile check

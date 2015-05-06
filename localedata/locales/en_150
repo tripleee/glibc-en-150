@@ -1,0 +1,91 @@
+escape_char  /
+comment_char  %
+
+% English language locale for Europe
+% Language: en
+% Territory: Europe (150)
+% Option: euro
+% Date: 2015-05-06
+% Users: general
+% Charset: ISO-8859-15
+% Distribution and use is free, also
+% for commercial purposes.
+
+LC_IDENTIFICATION
+title      "English locale for Europe"
+source     "Free Software Foundation, Inc."
+address    "http:////www.gnu.org//software//libc//"
+contact    ""
+email      "bug-glibc-locales@gnu.org"
+tel        ""
+fax        ""
+language   "English"
+territory  "Europe"
+revision   "1.0"
+date       "2015-05-06"
+%
+category  "en_150:2015";LC_IDENTIFICATION
+category  "en_150:2015";LC_CTYPE
+category  "en_150:2015";LC_COLLATE
+category  "en_150:2015";LC_TIME
+category  "en_150:2015";LC_NUMERIC
+category  "en_150:2015";LC_MONETARY
+category  "en_150:2015";LC_MESSAGES
+category  "en_150:2015";LC_PAPER
+category  "en_150:2015";LC_NAME
+category  "en_150:2015";LC_ADDRESS
+category  "en_150:2015";LC_MEASUREMENT
+END LC_IDENTIFICATION
+
+LC_CTYPE
+copy "en_IE"
+END LC_CTYPE
+
+LC_COLLATE
+copy "iso14651_t1"
+END LC_COLLATE
+
+LC_MONETARY
+copy "en_IE"
+END LC_MONETARY
+
+LC_NUMERIC
+copy "en_GB"
+END LC_NUMERIC
+
+LC_TIME
+copy "en_IE"
+END LC_TIME
+
+LC_MESSAGES
+copy "en_IE"
+END LC_MESSAGES
+
+LC_PAPER
+copy "en_IE"
+END LC_PAPER
+
+% LC_TELEPHONE has no useful values and has been omitted.
+
+LC_MEASUREMENT
+% metric
+measurement 1
+END LC_MEASUREMENT
+
+LC_NAME
+copy "en_IE"
+END LC_NAME
+
+LC_ADDRESS
+% Many LC_ADDRESS fields make no sense for a non-country territory
+% and have been omitted.
+
+% English
+lang_name     "<U0045><U006E><U0067><U006C><U0069><U0073><U0068>"
+% en
+lang_ab      "<U0065><U006E>"
+% eng
+lang_term    "<U0065><U006E><U0067>"
+% eng
+lang_lib    "<U0065><U006E><U0067>"
+END LC_ADDRESS

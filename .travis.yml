@@ -23,5 +23,5 @@ install:
   - sed --version
 
   - cd "$t" && "$p"/configure --prefix=/usr
-  - cd "$t" && make
+  - cd "$t" && make >make.log 2>&1 || { tail -n 500 make.log; false; }
   - cd "$t" && make check

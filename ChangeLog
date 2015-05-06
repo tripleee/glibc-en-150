@@ -157,6 +157,12 @@
 	__tls_get_addr.
 	* sysdeps/unix/sysv/linux/sparc/sparc64/localplt.data: Likewise.
 
+2015-04-27  Paul Eggert  <eggert@cs.ucla.edu>
+
+	* stdlib/setenv.c: Pacify only GCC 4.7 and later.
+	Problem with -Wmaybe-uninitialized reported by David Miller in:
+	https://sourceware.org/ml/libc-alpha/2015-04/msg00345.html
+
 2015-04-27  H.J. Lu  <hongjiu.lu@intel.com>
 
 	[BZ#18333]

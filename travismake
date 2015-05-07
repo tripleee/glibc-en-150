@@ -9,7 +9,22 @@ trap 'exit 126' HUP INT TERM
 make "$@" >"$log" 2>&1 &
 m=$!
 
-tail -f "$log" | tr -dc '\012' | tr '\012' '.' | stdbuf fold -w 76 &
+sh <<'____HERE' &
+(
+    tail -f "$log" &
+    tailproc=$!
+    while true; do
+        date +'<><%T><>'
+        sleep 300
+    done &
+    dateproc=$!
+    trap 'kill $tailproc $dateproc' EXIT
+    trap 'exit 126' HUP INT TERM
+) | awk '/^<></ { t=$0; gsub(/[<>]/, "", t); n++; next; }
+    ######## TODO: really kill if nothing happens for a really long time
+    NR-n % 75 || NR-n > g+3 { g=NR-n; print t, $0 }'
+____HERE
+
 q=$!
 
 wait "$m"

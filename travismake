@@ -1,0 +1,22 @@
+#!/bin/sh
+
+set -eu
+
+log=$(mktemp -t travismake.XXXXXXXXXXXX)
+trap 'rm -f "$log"' EXIT
+trap 'exit 126' HUP INT TERM
+
+make "$@" >"$log" 2>&1 &
+m=$!
+
+tail -f "$log" | tr -dc '\012' | tr '\012' . | fold -w 76 &
+q=$!
+
+wait "$m"
+e=$?
+
+kill "$q"
+
+tail -n 500 "$log"
+
+exit "$e"

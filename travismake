@@ -7,29 +7,18 @@ trap 'tail -n 500 "$log" /dev/null; rm -f "$log"' EXIT
 trap 'exit 126' HUP INT TERM
 
 make "$@" >"$log" 2>&1 &
-m=$!
+makeproc=$!
 
-sh <<'____HERE' &
-(
-    tail -f "$log" &
-    tailproc=$!
-    while true; do
-        date +'<><%T><>'
-        sleep 300
-    done &
-    dateproc=$!
-    trap 'kill $tailproc $dateproc' EXIT
-    trap 'exit 126' HUP INT TERM
-) | awk '/^<></ { t=$0; gsub(/[<>]/, "", t); n++; next; }
-    ######## TODO: really kill if nothing happens for a really long time
-    NR-n % 75 || NR-n > g+3 { g=NR-n; print t, $0 }'
-____HERE
+while true; do date +%T; sleep 300; done &
+dateproc=$!
 
-q=$!
+######## TODO: really kill if there is no progress at all for a very long time
+tail -f "$log" | awk '! NR % 75 { print strftime("%T"), $0 }' &
+logproc=$!
 
-wait "$m"
+wait "$makeproc"
 e=$?
 
-kill "$q"
+kill "$dateproc" "$logproc"
 
 exit "$e"

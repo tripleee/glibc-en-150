@@ -1,4 +1,20 @@
 #!/bin/sh
+#
+# Simple wrapper for "make" to allow it to run in Travis CI
+# without too easily tripping (1) too much output, or (2) too quiet.
+#
+# THE OUTPUT AS SUCH IS NOT USEFUL.  This squelches at least 98% of
+# the output from Make, while making sure it is never completely quiet
+# for a really long time.  What you see are RANDOM OUTPUT LINES without
+# any context to help you decide what's actually going on.
+#
+# Travis will kill a job if it generates more than 4Mb of output, or
+# if it generates no output for 10 minutes.  We work around this by
+# printing a timestamp as a pulse check every 5 minutes, and otherwise
+# only printing every 75th line of output from make.
+#
+# At the very end of the job, the last 500 lines of log are printed,
+# to hopefully allow you to check that the job finished properly.
 
 set -eu
 

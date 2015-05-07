@@ -13,7 +13,7 @@ while true; do date +%T; sleep 300; done &
 dateproc=$!
 
 ######## TODO: really kill if there is no progress at all for a very long time
-tail -f "$log" | awk '! NR % 75 { print strftime("%T"), $0 }' &
+tail -f "$log" | awk '! (NR % 75) { print strftime("%T"), $0 }' &
 logproc=$!
 
 wait "$makeproc"

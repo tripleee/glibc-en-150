@@ -23,5 +23,22 @@ install:
   - sed --version
 
   - cd "$t" && "$p"/configure --prefix=/usr
-  - cd "$t" && make >make.log 2>&1 || { tail -n 500 make.log; false; }
+
+  - echo '#!/bin/sh' >"$t"/build
+  - chmod a+x "$t"/build
+
+  - echo 'set -eu'                                        >>"$t"/build
+  - echo 'cd "$(dirname "$0")"'                           >>"$t"/build
+  - echo 'make >make.log 2>&1 &'                          >>"$t"/build
+  - echo 'm=$!'                                           >>"$t"/build
+  - echo "tr -d '\012' <make.log | tr '\012' . | fold -w 76 &"   >>"$t"/build
+  - echo 'q=$!'                                           >>"$t"/build
+  - echo 'wait "$m"'                                      >>"$t"/build
+  - echo 'e=$?'                                           >>"$t"/build
+  - echo 'kill "$q"'                                      >>"$t"/build
+  - echo 'tail -n 500 make.log'                           >>"$t"/build
+  - echo 'exit "$e"'                                      >>"$t"/build
+
+  - "$t"/build
+
   - cd "$t" && make check

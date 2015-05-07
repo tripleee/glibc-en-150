@@ -19,7 +19,7 @@
 set -eu
 
 log=$(mktemp -t travismake.XXXXXXXXXXXX)
-trap 'tail -n 500 "$log" /dev/null; rm -f "$log"' EXIT
+trap 'tail -n 500 -v "$log"; rm -f "$log"' EXIT
 trap 'exit 126' HUP INT TERM
 
 make "$@" >"$log" 2>&1 &

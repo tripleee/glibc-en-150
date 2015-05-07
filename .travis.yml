@@ -24,6 +24,10 @@ install:
 
   - cd "$t" && "$p"/configure --prefix=/usr
 
+  - ls -la "$t" | tee "$t"/.lsla
+  - cat "$t"/[Mm]akefile*
+
   - cd "$t" && "$p"/travismake
   - cd "$t" && "$p"/travismake check || true # stop-on-test-failure=y
 
+  - ls -la "$t" | diff "$t"/.lsla -

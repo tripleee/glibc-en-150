@@ -9,7 +9,7 @@ trap 'exit 126' HUP INT TERM
 make "$@" >"$log" 2>&1 &
 m=$!
 
-tail -f "$log" | tr -dc '\012' | tr '\012' . | fold -w 76 &
+tail -f "$log" | tr -dc '\012' | tr '\012' '.' | stdbuf fold -w 76 &
 q=$!
 
 wait "$m"
